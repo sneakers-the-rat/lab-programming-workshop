@@ -14,6 +14,9 @@ This is part of a broader set of commit-triggered things, like this page is buil
 
 * **COMMIT OFTEN** - if you don't want to "mess up" the main branch, just make another branch! It should *never* be the case
   that code only exists on your computer.
+* **VERSION EVERYTHING** - except maybe data. why not? no one has any time to read through your code
+  and make fun of you. configuration files, etc. whatever. just keep a coherent model of what
+  should be a code library and what is local configuration and you're golden
 
 How to use git with other people! Example of branching and merging!
 
