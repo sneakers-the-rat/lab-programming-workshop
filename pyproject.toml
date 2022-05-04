@@ -4,6 +4,9 @@ version = "0.1.0"
 description = "teaching the lab some best practices"
 authors = ["sneakers-the-rat <JLSaunders987@gmail.com>"]
 license = "MPL-2.0"
+packages = [
+    { include = "lab_programming_workshop" }
+]
 
 [tool.poetry.dependencies]
 python = "^3.9"
