@@ -280,6 +280,11 @@ const thebe_selector_output = ".output, .cell_output"
      Inheritance
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#abstract-methods">
+     Abstract Methods
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -356,6 +361,11 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#inheritance">
      Inheritance
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#abstract-methods">
+     Abstract Methods
     </a>
    </li>
   </ul>
@@ -711,10 +721,27 @@ a bunch of different places):</p>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_path</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span><span class="n">Path</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">parts</span><span class="o">=</span><span class="n">load_tracks</span><span class="p">(</span><span class="n">file</span><span class="p">))</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">parts</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parts</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">parts</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">part_names</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parts</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        If we don&#39;t have an attribute, see if it&#39;s one of our parts and return that</span>
+<span class="sd">        </span>
+<span class="sd">        Only called when an attr isn&#39;t found, so we don&#39;t have to handle that case specifically</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parts</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="c1"># this is actually an attribute error, trivial change</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No attribute or part named </span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s2"> found&quot;</span><span class="p">)</span>
+        
         
 </pre></div>
 </div>
@@ -725,12 +752,25 @@ our static analysis tools will tell us if we try to do something impossible with
 we use in our downstream analysis functions, we no longer <em>need</em> a specific function that has a bunch of
 hardcoded variable names, and we can start removing them from our other analysis functions, eg. those in
 <a class="reference external" href="https://github.com/wehr-lab/Prey_Capture_Python/blob/main/prey_capture_python/analysis/geometries.py">geometries</a></p>
+<p>We can then use this class like</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">DLCData</span><span class="o">.</span><span class="n">from_path</span><span class="p">(</span><span class="s1">&#39;my_data.csv&#39;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">Lear</span><span class="o">.</span><span class="n">xy</span> 
+</pre></div>
+</div>
+<p>which gives an array equivalent to</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tracks</span> <span class="o">=</span> <span class="n">load_tracks</span><span class="p">(</span><span class="s1">&#39;data/sky_mouse_example.csv&#39;</span><span class="p">)</span>
+<span class="n">lear_xy</span> <span class="o">=</span> <span class="n">df_to_xy</span><span class="p">(</span><span class="n">tracks</span><span class="p">[</span><span class="s1">&#39;Lear&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
 <div class="section" id="inheritance">
 <h3>Inheritance<a class="headerlink" href="#inheritance" title="Permalink to this headline">¶</a></h3>
 <p>Inheritance lets you group things together and elaborate their function.</p>
 <p>Data -&gt; specific format</p>
 <p>Example from autopilot and GPIO classes and then registry</p>
-<p>abstract base classes</p>
+</div>
+<div class="section" id="abstract-methods">
+<h3>Abstract Methods<a class="headerlink" href="#abstract-methods" title="Permalink to this headline">¶</a></h3>
+<p>Example from autopilot subject class</p>
 </div>
 </div>
 <div class="section" id="types-and-type-hints">
@@ -739,6 +779,7 @@ hardcoded variable names, and we can start removing them from our other analysis
 analysis tools that let us write code with more confidence and make our interfaces more explicit.</p>
 <p>Say we do want to make a specific class for our prey capture data, maybe for the purpose of sharing it, or
 maybe there is some analysis function that is truly unique to prey capture! who knows?</p>
+<p>Example of making a function using the DLCData class.</p>
 </div>
 <div class="section" id="on-notebooks">
 <h2>On Notebooks…<a class="headerlink" href="#on-notebooks" title="Permalink to this headline">¶</a></h2>

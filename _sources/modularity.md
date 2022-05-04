@@ -355,10 +355,27 @@ class DLCData:
     @classmethod
     def from_path(cls, file:Path):
         return cls(parts=load_tracks(file))
+    
+    @property
+    def parts(self) -> Dict[str,pd.DataFrame]:
+        return self._parts.copy()
 
     @property
-    def parts(self) -> List[str]:
+    def part_names(self) -> List[str]:
         return list(self._parts.keys())
+    
+    def __getattr__(self, item):
+        """
+        If we don't have an attribute, see if it's one of our parts and return that
+        
+        Only called when an attr isn't found, so we don't have to handle that case specifically
+        """
+        try:
+            return self._parts[item]
+        except KeyError:
+            # this is actually an attribute error, trivial change
+            raise AttributeError(f"No attribute or part named {item} found")
+        
         
 ```
 
@@ -371,6 +388,20 @@ we use in our downstream analysis functions, we no longer *need* a specific func
 hardcoded variable names, and we can start removing them from our other analysis functions, eg. those in 
 [geometries](https://github.com/wehr-lab/Prey_Capture_Python/blob/main/prey_capture_python/analysis/geometries.py)
 
+We can then use this class like
+
+```python
+data = DLCData.from_path('my_data.csv')
+data.Lear.xy 
+```
+
+which gives an array equivalent to
+
+```python
+tracks = load_tracks('data/sky_mouse_example.csv')
+lear_xy = df_to_xy(tracks['Lear'])
+```
+
 
 ### Inheritance
 
@@ -380,7 +411,9 @@ Data -> specific format
 
 Example from autopilot and GPIO classes and then registry
 
-abstract base classes
+### Abstract Methods
+
+Example from autopilot subject class
 
 ## Types and Type Hints
 
@@ -389,6 +422,8 @@ analysis tools that let us write code with more confidence and make our interfac
 
 Say we do want to make a specific class for our prey capture data, maybe for the purpose of sharing it, or
 maybe there is some analysis function that is truly unique to prey capture! who knows?
+
+Example of making a function using the DLCData class.
 
 ## On Notebooks...
 

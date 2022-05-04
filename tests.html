@@ -235,7 +235,13 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
+  <a class="reference internal nav-link" href="#relentless-positivity">
+   Relentless Positivity
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-pytest">
+   Using pytest
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -264,7 +270,13 @@ const thebe_selector_output = ".output, .cell_output"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
+  <a class="reference internal nav-link" href="#relentless-positivity">
+   Relentless Positivity
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-pytest">
+   Using pytest
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -286,8 +298,69 @@ const thebe_selector_output = ".output, .cell_output"
 <p>There are lots of “<a class="reference external" href="https://www.atlassian.com/continuous-delivery/software-testing/types-of-software-testing">types of testing</a>”
 and they are probably “important,” but I think it’s easier to start thinking about
 tests as provable statements about what your code does.</p>
-<div class="section" id="id1">
-<h2><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>We make a function that promises that it adds numbers together, we can write tests that assert that it does so!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="k">def</span> <span class="nf">add_weirdly</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">constant</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">2</span>
+
+<span class="n">repeats</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="k">def</span> <span class="nf">test_add_weirdly</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">repeats</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100000</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100000</span><span class="p">)</span>
+        
+        <span class="c1"># test the default case of + 2</span>
+        <span class="k">assert</span> <span class="n">add_weirdly</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">2</span>
+        
+        <span class="c1"># test with some other constant</span>
+        <span class="n">constant</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">add_weirdly</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">constant</span><span class="o">=</span><span class="n">constant</span><span class="p">)</span> <span class="o">==</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="n">constant</span>
+
+</pre></div>
+</div>
+<div class="section" id="relentless-positivity">
+<h2>Relentless Positivity<a class="headerlink" href="#relentless-positivity" title="Permalink to this headline">¶</a></h2>
+<p>For example, we have a function in the prey capture repository that’s suppoosed to
+find places where some column of a dataframe is higher than a certain value for a certain window</p>
+<p>To test that, we could write something like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">prey_capture_python.analysis.prey_cap_metrics</span> <span class="kn">import</span> <span class="n">relentless_positivity</span>
+<span class="n">n_randomizations</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="k">def</span> <span class="nf">test_relentless_positivity</span><span class="p">():</span>
+    <span class="c1"># make fake data with a period that should match</span>
+    <span class="n">thresh</span> <span class="o">=</span> <span class="mf">0.9</span>
+    
+    <span class="c1"># try this with a few different durations</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_randomizations</span><span class="p">):</span>
+        <span class="c1"># pick a random window</span>
+		<span class="n">window</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
+        <span class="c1"># and some random start and end point where the value should go above the threshold</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">window</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">window</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">window</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">window</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span>
+        
+        <span class="c1"># make a fake dataset with zeros until `start`, </span>
+        <span class="c1"># then `threshold` for an amount that is longer than the window</span>
+        <span class="c1"># then some more zeros</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">start</span><span class="p">,</span> <span class="o">*</span><span class="p">[</span><span class="n">thresh</span><span class="p">]</span><span class="o">*</span><span class="p">((</span><span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="o">*</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">window</span><span class="o">*</span><span class="mi">100</span><span class="p">]</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;data&#39;</span><span class="p">:</span><span class="n">data</span><span class="p">})</span>
+        
+        <span class="c1"># run the function</span>
+        <span class="n">periods</span> <span class="o">=</span> <span class="n">relentless_positivity</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">thresh</span><span class="p">)</span>
+        
+        <span class="c1"># assert that we got one period, and that the period markers match our start and end</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">periods</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">assert</span> <span class="n">periods</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">start</span>
+        <span class="k">assert</span> <span class="n">periods</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">end</span>
+
+</pre></div>
+</div>
+<p>Robust tests would have a lot more variations and edge cases, but you get the point!</p>
+</div>
+<div class="section" id="using-pytest">
+<h2>Using pytest<a class="headerlink" href="#using-pytest" title="Permalink to this headline">¶</a></h2>
+<p>example from autopilot!</p>
 </div>
 <div class="section" id="writing-testable-code">
 <h2>Writing Testable Code<a class="headerlink" href="#writing-testable-code" title="Permalink to this headline">¶</a></h2>
