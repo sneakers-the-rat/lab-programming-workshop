@@ -249,7 +249,8 @@ import pandas as pd
 import numpy as np
 def df_to_xy(df:pd.DataFrame) -> np.ndarray:
     """
-    Given a dataframe with `x` and `y` columns from :func:`load_tracks`, return an ``n x 2`` array of x/y coordinates
+    Given a dataframe with `x` and `y` columns from :func:`load_tracks`, 
+    return an ``n x 2`` array of x/y coordinates
     """
     return df[['x','y']].to_numpy()
 
