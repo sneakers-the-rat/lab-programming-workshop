@@ -1,0 +1,553 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Packaging &#8212; Lab Programming Workshop</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Modularity" href="modularity.html" />
+    <link rel="prev" title="Intro" href="intro.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Lab Programming Workshop</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Intro
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Contents
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Packaging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="modularity.html">
+   Modularity
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="docs.html">
+   Docs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tests.html">
+   Tests
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="collaboration.html">
+   Collaboration
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Meta
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="seealso.html">
+   See Also
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="references.html">
+   References
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/packaging.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/sneakers-the-rat/lab-programming-workshop"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/sneakers-the-rat/lab-programming-workshop/issues/new?title=Issue%20on%20page%20%2Fpackaging.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#project-structure">
+   Project Structure
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pyproject-toml">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     pyproject.toml
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#versioning">
+     Versioning
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dependency-specification">
+     Dependency Specification
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#metastructure">
+   Metastructure
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Packaging</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#project-structure">
+   Project Structure
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pyproject-toml">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     pyproject.toml
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#versioning">
+     Versioning
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dependency-specification">
+     Dependency Specification
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#metastructure">
+   Metastructure
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="packaging">
+<h1>Packaging<a class="headerlink" href="#packaging" title="Permalink to this headline">¶</a></h1>
+<div class="tip admonition">
+<p class="admonition-title">Tip</p>
+<p>Packaging happens at the beginning, not the end!</p>
+</div>
+<p>When writing any new code, set yourself up right!</p>
+<ul class="simple">
+<li><p>Make a new repository</p></li>
+<li><p>Initialize a package</p></li>
+<li><p>Sketch and create your initial structure</p></li>
+</ul>
+<p>For now I’ll assume we all know how to make a new repository and go on to making a package</p>
+<div class="section" id="project-structure">
+<h2>Project Structure<a class="headerlink" href="#project-structure" title="Permalink to this headline">¶</a></h2>
+<p>There is no “right way” to structure a project, but for the purpose of this workshop, let’s assume it looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>./my_project/
+├── .readthedocs.yml
+├── .travis.yml
+├── docs
+├── examples
+├── my_project
+│   └── __init__.py
+├── pyproject.toml
+├── scripts
+└── tests
+</pre></div>
+</div>
+<p>Even if your project doesn’t need all of these things, we start by being explicit about where things go rather than
+jumping into the code. Everything should have a place, and if it doesn’t, then you should make one rather than just
+making another file and putting it in the root directory. Your code isn’t just code, but will have a bunch of different
+components: yes you have your source directory <code class="docutils literal notranslate"><span class="pre">my_project</span></code> (or <code class="docutils literal notranslate"><span class="pre">src</span></code>, whatever you want to call it), but you also have
+documentation, tests that <em>use</em> code in <code class="docutils literal notranslate"><span class="pre">my_project</span></code>, etc.</p>
+<p>We’ll return to <code class="docutils literal notranslate"><span class="pre">.readthedocs.yml</span></code> and <code class="docutils literal notranslate"><span class="pre">docs/</span></code> in <a class="reference internal" href="docs.html"><span class="doc std std-doc">docs</span></a>, <code class="docutils literal notranslate"><span class="pre">.travis.yml</span></code> in <a class="reference internal" href="collaboration.html"><span class="doc std std-doc">collaboration</span></a>, and
+<code class="docutils literal notranslate"><span class="pre">tests/</span></code> in <a class="reference internal" href="tests.html"><span class="doc std std-doc">tests</span></a>, but let’s take a closer look at pyproject.toml</p>
+</div>
+<div class="section" id="pyproject-toml">
+<h2><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code><a class="headerlink" href="#pyproject-toml" title="Permalink to this headline">¶</a></h2>
+<p>Code is made immeasurably more useful if it can <em>build off other code</em> and <em>other code can build off it</em>.</p>
+<p>For this to work, most contemporary programming langauges have arrived at systems for <strong>dependency management</strong> and
+<strong>metadata declaration</strong> that tells a package manager what other code is needed to run this package.</p>
+<p>Let’s take a look at the one basic example from the <a class="reference external" href="https://github.com/wehr-lab/Prey_Capture_Python/blob/cabd5c2aff54e4099c89802361bbe784bf5b427a/pyproject.toml">prey capture repo</a></p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.poetry]</span><span class="w"></span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;prey_capture_python&quot;</span><span class="w"></span>
+<span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;0.1.0&quot;</span><span class="w"></span>
+<span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;python version of existing prey capture analysis pipeline&quot;</span><span class="w"></span>
+<span class="n">authors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;mshallow &lt;c.shallow@wustl.edu&gt;&quot;</span><span class="p">]</span><span class="w"></span>
+
+<span class="k">[tool.poetry.dependencies]</span><span class="w"></span>
+<span class="n">python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&gt;=3.7.1,&lt;3.10&quot;</span><span class="w"></span>
+<span class="n">pandas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;^1.3.5&quot;</span><span class="w"></span>
+<span class="n">matplotlib</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;^3.5.1&quot;</span><span class="w"></span>
+<span class="n">seaborn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;^0.11.2&quot;</span><span class="w"></span>
+<span class="n">scipy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&gt;=1.7.0&quot;</span><span class="w"></span>
+<span class="n">numpy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&gt;=1.21.0&quot;</span><span class="w"></span>
+<span class="n">Sphinx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;^4.4.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">optional</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">true</span><span class="p">}</span><span class="w"></span>
+<span class="n">furo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;^2022.2.23&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">optional</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">true</span><span class="p">}</span><span class="w"></span>
+<span class="n">myst-parser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;^0.17.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">optional</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">true</span><span class="p">}</span><span class="w"></span>
+
+<span class="k">[tool.poetry.dev-dependencies]</span><span class="w"></span>
+
+<span class="k">[tool.poetry.extras]</span><span class="w"></span>
+<span class="n">docs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;Sphinx&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;furo&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;myst-parser&quot;</span><span class="p">]</span><span class="w"></span>
+
+<span class="k">[build-system]</span><span class="w"></span>
+<span class="n">requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;poetry-core&gt;=1.0.0&quot;</span><span class="p">]</span><span class="w"></span>
+<span class="n">build-backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;poetry.core.masonry.api&quot;</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="section" id="versioning">
+<h3>Versioning<a class="headerlink" href="#versioning" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">version</span> <span class="pre">=</span> <span class="pre">&quot;0.1.0&quot;</span></code></p>
+<p>Use <a class="reference external" href="https://semver.org/">semantic versioning</a>! There are a lot of rules, but the gist is:</p>
+<ul class="simple">
+<li><p><strong>0</strong>.1.0 - The major version, increment when you make changes that break commonly used interfaces and use patterns</p></li>
+<li><p>0.<strong>1</strong>.0 -  The minor version, increment when making minor (or major) changes that add functionality or are (mostly) backwards compatible</p></li>
+<li><p>0.1.<strong>0</strong> - The patch version, increment when making bugfixes that don’t change the way the code is used.</p></li>
+</ul>
+<p>This is an indication to downstream packages and users when and what kind of changes can be made and allow them to
+pin specific versions of your code to guarantee a particular kind of functionality.</p>
+<p>This also frees <em>you</em> up to make changes to your code, because people reliant on particular functionality <em>should</em> pin
+a particular version (or they can always roll back to one).</p>
+</div>
+<div class="section" id="dependency-specification">
+<h3>Dependency Specification<a class="headerlink" href="#dependency-specification" title="Permalink to this headline">¶</a></h3>
+<p>There are a number of different ways to specify dependency versions that we won’t cover here, but the most common ones
+you’ll see are</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">^0.1.0</span></code> - Caret versioning allows any version greater than that version, but less than the leftmost nonzero number.
+So <code class="docutils literal notranslate"><span class="pre">0.1.*</span></code> are all allowed, but <code class="docutils literal notranslate"><span class="pre">0.2.0</span></code> is not.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&gt;=0.1.0</span></code> - <em>Any</em> version of the code greater than that one can be used. Permissive, but has the potential to break if
+breaking changes are introduced</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&gt;=0.1.0,0.3.0</span></code> - A specific <em>range</em> of versions are allowed - more specific than carat versioning.</p></li>
+</ul>
+<p>Given these, poetry will then generate a <code class="docutils literal notranslate"><span class="pre">lockfile</span></code> that recursively computes a specific combination of packages that
+satisfy the dependencies. For example, we require numpy, pandas, and scipy, but pandas and scipy both have their own requirements
+for which versions of numpy they support:</p>
+<p><code class="docutils literal notranslate"><span class="pre">poetry</span> <span class="pre">show</span> <span class="pre">-t</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>numpy 1.21.5 NumPy is the fundamental package for array computing with Python.
+pandas 1.3.5 Powerful data structures for data analysis, time series, and statistics
+├── numpy &gt;=1.17.3
+├── numpy &gt;=1.19.2
+├── numpy &gt;=1.20.0
+├── python-dateutil &gt;=2.7.3
+│   └── six &gt;=1.5 
+└── pytz &gt;=2017.3
+scipy 1.7.3 SciPy: Scientific Library for Python
+└── numpy &gt;=1.16.5,&lt;1.23.0
+</pre></div>
+</div>
+<p>The poetry lockfile will then compute a specific version of numpy that satisfies all those constraints.</p>
+</div>
+</div>
+<div class="section" id="metastructure">
+<h2>Metastructure<a class="headerlink" href="#metastructure" title="Permalink to this headline">¶</a></h2>
+<p>Before we put any code in our repository, we should make a diagram of the basic components that will go into it so we
+have some idea of where to put it as we go! For example, for this project, we know we will have some way of loading files,
+some statistical models, some geometric analysis functions, and then some functions that tie them all together.</p>
+<p>We can use something like graphviz to keep track of that!</p>
+digraph {
+  rankdir=&quot;BT&quot;
+  io[shape=box style=filled]
+  models[shape=box style=filled]
+  geometry[shape=box style=filled]
+  pipeline[shape=box style=filled]
+  
+  videos -&gt; io
+  ephys -&gt; io
+  glmhmm -&gt; models
+  arhmm -&gt; models
+  azimuth -&gt; geometry
+  distance -&gt; geometry
+  
+  models -&gt; pipeline
+  io -&gt; pipeline
+  geometry -&gt; pipeline
+}<p>Here we’re specifying that our geometry functions shouldn’t know specifically about how the data is loaded, nor how they’ll
+be combined with the different models that we have. The pipeline-level classes and functions are the only ones that know how
+each of the subtypes of objects work. The graph is intentionally abstract because it’s just intended to structure our work.
+As we continue to work on the package, our graph becomes a sort of implicit rubber duck test: does my code resemble the graph?
+if not, why? does the graph need to be update, or does my code need to be refactored?</p>
+<p>The syntax for graphviz is straightforward, the above diagram took ~3 minutes to sketch:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">digraph</span> <span class="p">{</span>
+  <span class="n">rankdir</span><span class="o">=</span><span class="s2">&quot;BT&quot;</span>
+  <span class="n">io</span><span class="p">[</span><span class="n">shape</span><span class="o">=</span><span class="n">box</span> <span class="n">style</span><span class="o">=</span><span class="n">filled</span><span class="p">]</span>
+  <span class="n">models</span><span class="p">[</span><span class="n">shape</span><span class="o">=</span><span class="n">box</span> <span class="n">style</span><span class="o">=</span><span class="n">filled</span><span class="p">]</span>
+  <span class="n">geometry</span><span class="p">[</span><span class="n">shape</span><span class="o">=</span><span class="n">box</span> <span class="n">style</span><span class="o">=</span><span class="n">filled</span><span class="p">]</span>
+  <span class="n">pipeline</span><span class="p">[</span><span class="n">shape</span><span class="o">=</span><span class="n">box</span> <span class="n">style</span><span class="o">=</span><span class="n">filled</span><span class="p">]</span>
+  
+  <span class="n">videos</span> <span class="o">-&gt;</span> <span class="n">io</span>
+  <span class="n">ephys</span> <span class="o">-&gt;</span> <span class="n">io</span>
+  <span class="n">glmhmm</span> <span class="o">-&gt;</span> <span class="n">models</span>
+  <span class="n">arhmm</span> <span class="o">-&gt;</span> <span class="n">models</span>
+  <span class="n">azimuth</span> <span class="o">-&gt;</span> <span class="n">geometry</span>
+  <span class="n">distance</span> <span class="o">-&gt;</span> <span class="n">geometry</span>
+  
+  <span class="n">models</span> <span class="o">-&gt;</span> <span class="n">pipeline</span>
+  <span class="n">io</span> <span class="o">-&gt;</span> <span class="n">pipeline</span>
+  <span class="n">geometry</span> <span class="o">-&gt;</span> <span class="n">pipeline</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="intro.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Intro</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="modularity.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Modularity</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Jonny Saunders<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
