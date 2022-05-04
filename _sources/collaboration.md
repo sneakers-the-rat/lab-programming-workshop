@@ -8,6 +8,8 @@ Example of how CI works in practice looking at PVP pull requests!
 
 Example of travis configuration from autopilot!
 
+This is part of a broader set of commit-triggered things, like this page is built using a github action!
+
 ## Making git your friend
 
 * **COMMIT OFTEN** - if you don't want to "mess up" the main branch, just make another branch! It should *never* be the case
