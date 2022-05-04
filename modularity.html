@@ -662,10 +662,10 @@ very similar. We’ll show how to encapsulate that a bit later, to get there let
 <div class="section" id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
 <p>There’s still plenty of implicitness in the above functions: we specify in our type hints that
-we take a pandas DataFrame, andf then in the docstring describe what it should consist of, but
+we take a pandas DataFrame, and then in the docstring describe what it should consist of, but
 we can do better! We can, make a specific class that represents our deeplabcut coordinates!</p>
 <p>Classes let us encapsulate related sets of variables (attributes) and functions (methods).</p>
-<p>Basic patterns</p>
+<p>A few more basic principles:</p>
 <ul class="simple">
 <li><p>Declare all attributes that your object has in <code class="docutils literal notranslate"><span class="pre">__init__</span></code> - you shouldn’t get an object that’s missing an attribute that
 you expect it to have.</p></li>
@@ -673,18 +673,72 @@ you expect it to have.</p></li>
 then you have to make sure that they stay mostly consistent over time. Instead, choose which parts
 you want to expose as the interface and keep the rest <em>private</em> to indicate that people shouldn’t rely
 on those. In python that’s indicated by putting an <code class="docutils literal notranslate"><span class="pre">_underscore()</span></code> below a method name.</p></li>
+<li><p>Use <a class="reference external" href="https://docs.python.org/3/library/functions.html?highlight=property#property">properties</a> for <em>static</em> attributes
+that are derived from other attributes. For example, if you have a <code class="docutils literal notranslate"><span class="pre">volume</span></code> class that takes in some volume as Liters,
+you can define a <code class="docutils literal notranslate"><span class="pre">mL</span></code> property that returns the current volume / 1000.</p></li>
 </ul>
+<p>For example, we can imagine making a wrapper around some common DeepLabCut data idioms like this
+(reusing some of our previous functions just for funzies to show how simple functions let us use them in
+a bunch of different places):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">class</span> <span class="nc">DLCPart</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An individual </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">likelihood</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;likelihood&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_df</span> <span class="o">=</span> <span class="n">df</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">xy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">df_to_xy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_df</span><span class="p">)</span>
+        
+
+<span class="k">class</span> <span class="nc">DLCData</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parts</span><span class="p">:</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span> <span class="n">scorer</span><span class="p">:</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+      
+        <span class="bp">self</span><span class="o">.</span><span class="n">scorer</span> <span class="o">=</span> <span class="n">scorer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parts</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span><span class="n">DLCPart</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">part</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_path</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span><span class="n">Path</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">parts</span><span class="o">=</span><span class="n">load_tracks</span><span class="p">(</span><span class="n">file</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">parts</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parts</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        
+</pre></div>
+</div>
+<p>Here we’re using a <em>composition</em> strategy where one class uses another class as its attributes: the two are defined
+independently, but used together. But since we have made an explicit class with specific attributes and methods,
+our static analysis tools will tell us if we try to do something impossible with it.</p>
+<p>Since we can contain an arbitrary DLC dataset in that object and get all the other representations that
+we use in our downstream analysis functions, we no longer <em>need</em> a specific function that has a bunch of
+hardcoded variable names, and we can start removing them from our other analysis functions, eg. those in
+<a class="reference external" href="https://github.com/wehr-lab/Prey_Capture_Python/blob/main/prey_capture_python/analysis/geometries.py">geometries</a></p>
 <div class="section" id="inheritance">
 <h3>Inheritance<a class="headerlink" href="#inheritance" title="Permalink to this headline">¶</a></h3>
 <p>Inheritance lets you group things together and elaborate their function.</p>
 <p>Data -&gt; specific format</p>
 <p>Example from autopilot and GPIO classes and then registry</p>
+<p>abstract base classes</p>
 </div>
 </div>
 <div class="section" id="types-and-type-hints">
 <h2>Types and Type Hints<a class="headerlink" href="#types-and-type-hints" title="Permalink to this headline">¶</a></h2>
 <p>Python isn’t a strongly typed language (ie. type hints are not <em>enforced</em>), but type hints let us make use of static
 analysis tools that let us write code with more confidence and make our interfaces more explicit.</p>
+<p>Say we do want to make a specific class for our prey capture data, maybe for the purpose of sharing it, or
+maybe there is some analysis function that is truly unique to prey capture! who knows?</p>
 </div>
 <div class="section" id="on-notebooks">
 <h2>On Notebooks…<a class="headerlink" href="#on-notebooks" title="Permalink to this headline">¶</a></h2>

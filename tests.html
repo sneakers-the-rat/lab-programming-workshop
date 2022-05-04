@@ -235,8 +235,12 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#fail-loud">
-   Fail Loud
+  <a class="reference internal nav-link" href="#id1">
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#writing-testable-code">
+   Writing Testable Code
   </a>
  </li>
 </ul>
@@ -260,8 +264,12 @@ const thebe_selector_output = ".output, .cell_output"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#fail-loud">
-   Fail Loud
+  <a class="reference internal nav-link" href="#id1">
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#writing-testable-code">
+   Writing Testable Code
   </a>
  </li>
 </ul>
@@ -275,8 +283,14 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="tests">
 <h1>Tests<a class="headerlink" href="#tests" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="fail-loud">
-<h2>Fail Loud<a class="headerlink" href="#fail-loud" title="Permalink to this headline">¶</a></h2>
+<p>There are lots of “<a class="reference external" href="https://www.atlassian.com/continuous-delivery/software-testing/types-of-software-testing">types of testing</a>”
+and they are probably “important,” but I think it’s easier to start thinking about
+tests as provable statements about what your code does.</p>
+<div class="section" id="id1">
+<h2><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="writing-testable-code">
+<h2>Writing Testable Code<a class="headerlink" href="#writing-testable-code" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>always terminate with an else: that raises an error if you’re doing a switch case statement.</p></li>
 <li><p>If something isn’t right, you <em>should</em> raise an error rather than just letting it pass silently.</p></li>

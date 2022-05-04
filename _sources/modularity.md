@@ -302,12 +302,12 @@ very similar. We'll show how to encapsulate that a bit later, to get there let's
 ## Classes
 
 There's still plenty of implicitness in the above functions: we specify in our type hints that
-we take a pandas DataFrame, andf then in the docstring describe what it should consist of, but 
+we take a pandas DataFrame, and then in the docstring describe what it should consist of, but 
 we can do better! We can, make a specific class that represents our deeplabcut coordinates!
 
 Classes let us encapsulate related sets of variables (attributes) and functions (methods).
 
-Basic patterns
+A few more basic principles:
 
 * Declare all attributes that your object has in `__init__` - you shouldn't get an object that's missing an attribute that
   you expect it to have.
@@ -315,6 +315,61 @@ Basic patterns
   then you have to make sure that they stay mostly consistent over time. Instead, choose which parts
   you want to expose as the interface and keep the rest *private* to indicate that people shouldn't rely
   on those. In python that's indicated by putting an `_underscore()` below a method name.
+* Use [properties](https://docs.python.org/3/library/functions.html?highlight=property#property) for *static* attributes
+  that are derived from other attributes. For example, if you have a `volume` class that takes in some volume as Liters,
+  you can define a `mL` property that returns the current volume / 1000.
+
+For example, we can imagine making a wrapper around some common DeepLabCut data idioms like this
+(reusing some of our previous functions just for funzies to show how simple functions let us use them in 
+a bunch of different places):
+
+```python
+from pathlib import Path
+from typing import Dict, Optional, List
+import pandas as pd
+import numpy as np
+
+class DLCPart:
+    """
+    An individual 
+    """
+    def __init__(self, name:str, df:pd.DataFrame):
+        self.name = name
+        self.x = df['x']
+        self.y = df['y']
+        self.likelihood = df['likelihood']
+        self._df = df
+    
+    @property
+    def xy(self) -> np.ndarray:
+        return df_to_xy(self._df)
+        
+
+class DLCData:
+
+    def __init__(self, parts:Dict[str,pd.DataFrame], scorer:Optional[str]=None):
+      
+        self.scorer = scorer
+        self._parts = {key:DLCPart(name=key, df=part) for key, part in parts.items()}
+        
+    @classmethod
+    def from_path(cls, file:Path):
+        return cls(parts=load_tracks(file))
+
+    @property
+    def parts(self) -> List[str]:
+        return list(self._parts.keys())
+        
+```
+
+Here we're using a *composition* strategy where one class uses another class as its attributes: the two are defined
+independently, but used together. But since we have made an explicit class with specific attributes and methods,
+our static analysis tools will tell us if we try to do something impossible with it.
+
+Since we can contain an arbitrary DLC dataset in that object and get all the other representations that
+we use in our downstream analysis functions, we no longer *need* a specific function that has a bunch of
+hardcoded variable names, and we can start removing them from our other analysis functions, eg. those in 
+[geometries](https://github.com/wehr-lab/Prey_Capture_Python/blob/main/prey_capture_python/analysis/geometries.py)
 
 
 ### Inheritance
@@ -325,12 +380,15 @@ Data -> specific format
 
 Example from autopilot and GPIO classes and then registry
 
+abstract base classes
+
 ## Types and Type Hints
 
 Python isn't a strongly typed language (ie. type hints are not *enforced*), but type hints let us make use of static
 analysis tools that let us write code with more confidence and make our interfaces more explicit.
 
-
+Say we do want to make a specific class for our prey capture data, maybe for the purpose of sharing it, or
+maybe there is some analysis function that is truly unique to prey capture! who knows?
 
 ## On Notebooks...
 

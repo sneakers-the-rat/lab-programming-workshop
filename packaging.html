@@ -444,7 +444,8 @@ scipy 1.7.3 SciPy: Scientific Library for Python
 have some idea of where to put it as we go! For example, for this project, we know we will have some way of loading files,
 some statistical models, some geometric analysis functions, and then some functions that tie them all together.</p>
 <p>We can use something like graphviz to keep track of that!</p>
-digraph {
+<div class="graphviz"><object data="_images/graphviz-19d667812471a9ff8b91896e83d2e1f371ba6e1a.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph {
   rankdir=&quot;BT&quot;
   io[shape=box style=filled]
   models[shape=box style=filled]
@@ -461,7 +462,8 @@ digraph {
   models -&gt; pipeline
   io -&gt; pipeline
   geometry -&gt; pipeline
-}<p>Here we’re specifying that our geometry functions shouldn’t know specifically about how the data is loaded, nor how they’ll
+}</p></object></div>
+<p>Here we’re specifying that our geometry functions shouldn’t know specifically about how the data is loaded, nor how they’ll
 be combined with the different models that we have. The pipeline-level classes and functions are the only ones that know how
 each of the subtypes of objects work. The graph is intentionally abstract because it’s just intended to structure our work.
 As we continue to work on the package, our graph becomes a sort of implicit rubber duck test: does my code resemble the graph?
