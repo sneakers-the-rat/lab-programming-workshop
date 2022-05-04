@@ -1,0 +1,17 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+parts:
+  - caption: Contents
+    chapters:
+    - file: packaging
+    - file: modularity
+    - file: docs
+    - file: tests
+    - file: collaboration
+  - caption: Meta
+    chapters:
+    - file: seealso
+    - file: references
