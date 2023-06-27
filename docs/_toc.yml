@@ -15,7 +15,7 @@ parts:
     - file: tests/index
       sections:
       - file: tests/tests
-      - file: tests/testable_code 
+      - file: tests/testable_code
     - file: collaboration
   - caption: Meta
     chapters:
