@@ -184,3 +184,7 @@ digraph {
   geometry -> pipeline
 }
 ```
+
+## See Also
+
+- [PyOpenSci Packaging Guide](https://www.pyopensci.org/python-package-guide/)

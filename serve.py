@@ -9,9 +9,9 @@ from livereload import Server, shell
 
 server = Server()
 files = [
-    "docs/*.md",
-    "docs/*.yml",
-    "docs/images/*",
+    "docs/**/*.md",
+    "docs/**/*.yml",
+    "docs/img/*",
 ]
 rebuild_all = [
     'docs/_toc.yml',

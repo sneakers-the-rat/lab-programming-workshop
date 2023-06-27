@@ -7,9 +7,15 @@ parts:
   - caption: Contents
     chapters:
     - file: packaging
-    - file: modularity
+    - file: modularity/index
+      sections:
+      - file: modularity/modularity
+      - file: modularity/miniscope_io_refactoring 
     - file: docs
-    - file: tests
+    - file: tests/index
+      sections:
+      - file: tests/tests
+      - file: tests/testable_code 
     - file: collaboration
   - caption: Meta
     chapters:

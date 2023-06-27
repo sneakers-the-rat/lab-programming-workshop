@@ -1,4 +1,4 @@
-# Tests
+# Testing - Basics
 
 There are lots of "[types of testing](https://www.atlassian.com/continuous-delivery/software-testing/types-of-software-testing)"
 and they are probably "important," but I think it's easier to start thinking about
@@ -80,3 +80,14 @@ example from autopilot!
 
 * always terminate with an else: that raises an error if you're doing a switch case statement.
 * If something isn't right, you *should* raise an error rather than just letting it pass silently.
+
+* Same thing implemented in multiple places
+    * https://github.com/Aharoni-Lab/Wireless-Miniscope/blob/master/image_acquisition/offline_DAQ.ipynb
+    * https://github.com/Aharoni-Lab/Miniscope-v4-Wire-Free/blob/master/Miniscope-v4-Wire-Free-Python%20DAQ%20Interface/Load%20raw%20data%20from%20SD%20card%20and%20write%20video%20-%20WireFree%20V4%20Miniscope.ipynb
+    * https://github.com/Aharoni-Lab/Miniscope-v4-Wire-Free/blob/master/Miniscope-v4-Wire-Free-Python%20DAQ%20Interface/Set%20recording%20parameters%20-%20WireFree%20V4%20Miniscope.ipynb
+    * https://github.com/Aharoni-Lab/Miniscope-Wire-Free-DAQ/blob/master/Wire-Free-DAQ-Software/Wire-Free-DAQ.ipynb
+
+
+## References
+
+- 

@@ -1,4 +1,4 @@
-# Modularity
+# Modularity - Basics
 
 The essence of modularity is to write code that never does or depends on anything *implicitly.*
 
@@ -16,7 +16,7 @@ thus what it should *not* do --- and how other things should make it do those th
 * [Software Overview](https://www.peoplesvent.org/en/latest/software/software_overview.html)
 * [GUI](https://www.peoplesvent.org/en/latest/software/gui/index.html)
 
-![Software overview diagram for the people's ventilator project](img/pvp_software_overview-01.png)
+![Software overview diagram for the people's ventilator project](../img/pvp_software_overview-01.png)
 
 We have defined not only the individual components of the system, but also *how they are allowed to communicate*. By
 carefully limiting how much each other part of the system "knows" about the others, we make sure that changes don't
