@@ -1,0 +1,1304 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Example: Miniscope IO &#8212; Lab Programming Workshop</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modularity/miniscope_io_refactoring';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Docs" href="../docs.html" />
+    <link rel="prev" title="Modularity - Basics" href="modularity.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Intro
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../packaging.html">Packaging</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Modularity</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="modularity.html">Modularity - Basics</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Example: Miniscope IO</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../docs.html">Docs</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tests/index.html">Tests</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tests/tests.html">Testing - Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tests/testable_code.html">Writing Testable Code</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../collaboration.html">Collaboration</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Meta</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../seealso.html">See Also</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/sneakers-the-rat/lab-programming-workshop" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/sneakers-the-rat/lab-programming-workshop/issues/new?title=Issue%20on%20page%20%2Fmodularity/miniscope_io_refactoring.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/modularity/miniscope_io_refactoring.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Example: Miniscope IO</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problems">Problems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#format">Format</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#current-status">Current Status!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#format-abstraction">Format abstraction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sector-config">Sector Config</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sd-header">SD Header</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#all-together">All Together</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#specific-formats">Specific Formats</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#io">IO</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Current Status!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#separate-i-o-class">Separate I/O Class</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="example-miniscope-io">
+<h1>Example: Miniscope IO<a class="headerlink" href="#example-miniscope-io" title="Permalink to this heading">#</a></h1>
+<p><strong>Scenario:</strong> We have a bunch of different miniscopes that may each have their own firmware and format when writing acquired videos to disk. We would like to make a package to standardize the format and provide a simple I/O wrapper around it.</p>
+<p>Follow along with the code in the package:</p>
+<p><a class="github reference external" href="https://github.com/Aharoni-Lab/miniscope-io">Aharoni-Lab/miniscope-io</a></p>
+<section id="problems">
+<h2>Problems<a class="headerlink" href="#problems" title="Permalink to this heading">#</a></h2>
+<p>There is a bug in the way that videos are acquired that is likely a hardware bug, but the software isn’t helping us understand it at all:</p>
+<p><video src="../_images/wirefree.mp4" title="Wire-Free Miniscope Example" controls><a href="../_images/wirefree.mp4">Wire-Free Miniscope Example</a></video></p>
+<p>We also have the problem where we have implemented the same I/O routines in multiple places with various functionality!</p>
+<ul class="simple">
+<li><p>Wireless-Miniscope</p>
+<ul>
+<li><p><a class="github reference external" href="https://github.com/Aharoni-Lab/Wireless-Miniscope/blob/master/image_acquisition/offline_DAQ.ipynb">Aharoni-Lab/Wireless-Miniscope</a></p></li>
+</ul>
+</li>
+<li><p>Miniscope-v4-Wire-Free</p>
+<ul>
+<li><p>Reading: <a class="reference external" href="https://github.com/Aharoni-Lab/Miniscope-v4-Wire-Free/blob/master/Miniscope-v4-Wire-Free-Python%20DAQ%20Interface/Load%20raw%20data%20from%20SD%20card%20and%20write%20video%20-%20WireFree%20V4%20Miniscope.ipynb">https://github.com/Aharoni-Lab/Miniscope-v4-Wire-Free/blob/master/Miniscope-v4-Wire-Free-Python DAQ Interface/Load raw data from SD card and write video - WireFree V4 Miniscope.ipynb</a></p></li>
+<li><p>Writing: <a class="reference external" href="https://github.com/Aharoni-Lab/Miniscope-v4-Wire-Free/blob/master/Miniscope-v4-Wire-Free-Python%20DAQ%20Interface/Set%20recording%20parameters%20-%20WireFree%20V4%20Miniscope.ipynb">https://github.com/Aharoni-Lab/Miniscope-v4-Wire-Free/blob/master/Miniscope-v4-Wire-Free-Python DAQ Interface/Set recording parameters - WireFree V4 Miniscope.ipynb</a></p></li>
+</ul>
+</li>
+<li><p>Miniscope-Wire-Free-DAQ</p>
+<ul>
+<li><p><a class="github reference external" href="https://github.com/Aharoni-Lab/Miniscope-Wire-Free-DAQ/blob/master/Wire-Free-DAQ-Software/Wire-Free-DAQ.ipynb">Aharoni-Lab/Miniscope-Wire-Free-DAQ</a></p></li>
+</ul>
+</li>
+</ul>
+<p>And the format is loosely coupled to how the data is written by the capturing firmware</p>
+<ul class="simple">
+<li><p><a class="github reference external" href="https://github.com/Aharoni-Lab/Miniscope-v4-Wire-Free/blob/1a3ba1163786f86421c3b2a484c4462427ef9917/Miniscope-v4-Wire-Free-MCU-Firmware/Miniscope-v4-Wire-Free/definitions.h#L39">Aharoni-Lab/Miniscope-v4-Wire-Free</a></p></li>
+<li><p><a class="github reference external" href="https://github.com/Aharoni-Lab/Miniscope-SAMD-Framework/blob/main/include/MS_definitions.h">Aharoni-Lab/Miniscope-SAMD-Framework</a></p></li>
+</ul>
+</section>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
+<p>What can we do!?</p>
+<p>Much like the <a class="reference internal" href="modularity.html"><span class="doc std std-doc">previous</span></a> lesson, we are going to</p>
+<ul class="simple">
+<li><p>Break up the logic into smaller pieces</p></li>
+<li><p>Move Notebook code into a package</p></li>
+<li><p>Create interfaces between the format specification and the I/O class</p></li>
+</ul>
+</section>
+<section id="format">
+<h2>Format<a class="headerlink" href="#format" title="Permalink to this heading">#</a></h2>
+<section id="current-status">
+<h3>Current Status!<a class="headerlink" href="#current-status" title="Permalink to this heading">#</a></h3>
+<p>We first notice some inconsistencies between a format from 3 years ago and the current version!</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-0">
+New Version</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># SD Card sector information</span>
+<span class="n">headerSector</span> <span class="o">=</span>          <span class="mi">1022</span> <span class="c1"># Holds user settings to configure Miniscope and recording</span>
+<span class="n">configSector</span> <span class="o">=</span>          <span class="mi">1023</span> <span class="c1"># Holds final settings of the actual recording</span>
+<span class="n">dataStartSector</span> <span class="o">=</span>       <span class="mi">1024</span> <span class="c1"># Recording data starts here</span>
+<span class="n">sectorSize</span> <span class="o">=</span>            <span class="mi">512</span>
+
+<span class="n">WRITE_KEY0</span> <span class="o">=</span>                <span class="mh">0x0D7CBA17</span>
+<span class="n">WRITE_KEY1</span> <span class="o">=</span>                <span class="mh">0x0D7CBA17</span>
+<span class="n">WRITE_KEY2</span> <span class="o">=</span>                <span class="mh">0x0D7CBA17</span>
+<span class="n">WRITE_KEY3</span> <span class="o">=</span>                <span class="mh">0x0D7CBA17</span>
+
+<span class="c1"># SD Card Header Sector positions</span>
+<span class="n">HEADER_GAIN_POS</span> <span class="o">=</span>               <span class="mi">4</span>
+<span class="n">HEADER_LED_POS</span> <span class="o">=</span>                <span class="mi">5</span>
+<span class="n">HEADER_EWL_POS</span> <span class="o">=</span>                <span class="mi">6</span>
+<span class="n">HEADER_RECORD_LENGTH_POS</span> <span class="o">=</span>      <span class="mi">7</span>
+<span class="n">HEADER_FRAME_RATE</span> <span class="o">=</span>             <span class="mi">8</span>
+
+<span class="c1"># SD Card Config Sector positions</span>
+<span class="n">CONFIG_BLOCK_WIDTH_POS</span> <span class="o">=</span>                <span class="mi">0</span>
+<span class="n">CONFIG_BLOCK_HEIGHT_POS</span> <span class="o">=</span>               <span class="mi">1</span>
+<span class="n">CONFIG_BLOCK_FRAME_RATE_POS</span> <span class="o">=</span>           <span class="mi">2</span>
+<span class="n">CONFIG_BLOCK_BUFFER_SIZE_POS</span> <span class="o">=</span>          <span class="mi">3</span>
+<span class="n">CONFIG_BLOCK_NUM_BUFFERS_RECORDED_POS</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">CONFIG_BLOCK_NUM_BUFFERS_DROPPED_POS</span> <span class="o">=</span>  <span class="mi">5</span>
+
+<span class="c1"># Data Buffer Header positions</span>
+<span class="n">BUFFER_HEADER_HEADER_LENGTH_POS</span> <span class="o">=</span>           <span class="mi">0</span>
+<span class="n">BUFFER_HEADER_LINKED_LIST_POS</span> <span class="o">=</span>             <span class="mi">1</span>
+<span class="n">BUFFER_HEADER_FRAME_NUM_POS</span> <span class="o">=</span>               <span class="mi">2</span>
+<span class="n">BUFFER_HEADER_BUFFER_COUNT_POS</span> <span class="o">=</span>            <span class="mi">3</span>
+<span class="n">BUFFER_HEADER_FRAME_BUFFER_COUNT_POS</span> <span class="o">=</span>      <span class="mi">4</span>
+<span class="n">BUFFER_HEADER_WRITE_BUFFER_COUNT_POS</span> <span class="o">=</span>      <span class="mi">5</span>
+<span class="n">BUFFER_HEADER_DROPPED_BUFFER_COUNT_POS</span> <span class="o">=</span>    <span class="mi">6</span>
+<span class="n">BUFFER_HEADER_TIMESTAMP_POS</span> <span class="o">=</span>               <span class="mi">7</span>
+<span class="n">BUFFER_HEADER_DATA_LENGTH_POS</span> <span class="o">=</span>             <span class="mi">8</span>
+<span class="n">BUFFER_HEADER_WRITE_TIMESTAMP_POS</span> <span class="o">=</span>         <span class="mi">9</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-1">
+Old Version</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># SD Card sector information</span>
+<span class="n">headerSector</span> <span class="o">=</span>          <span class="mi">1023</span> <span class="c1"># Holds user settings to configure Miniscope and recording</span>
+<span class="n">configSector</span> <span class="o">=</span>          <span class="mi">1024</span> <span class="c1"># Holds final settings of the actual recording</span>
+<span class="n">dataStartSector</span> <span class="o">=</span>       <span class="mi">1025</span> <span class="c1"># Recording data starts here</span>
+<span class="n">sectorSize</span> <span class="o">=</span>            <span class="mi">512</span>
+
+<span class="n">WRITE_KEY0</span> <span class="o">=</span>                <span class="mh">0x0D7CBA17</span>
+<span class="n">WRITE_KEY1</span> <span class="o">=</span>                <span class="mh">0x0D7CBA17</span>
+<span class="n">WRITE_KEY2</span> <span class="o">=</span>                <span class="mh">0x0D7CBA17</span>
+<span class="n">WRITE_KEY3</span> <span class="o">=</span>                <span class="mh">0x0D7CBA17</span>
+
+<span class="c1"># SD Card Header Sector positions</span>
+<span class="n">HEADER_GAIN_POS</span> <span class="o">=</span>               <span class="mi">4</span>
+<span class="n">HEADER_LED_POS</span> <span class="o">=</span>                <span class="mi">5</span>
+<span class="n">HEADER_EWL_POS</span> <span class="o">=</span>                <span class="mi">6</span>
+<span class="n">HEADER_RECORD_LENGTH_POS</span> <span class="o">=</span>      <span class="mi">7</span>
+<span class="n">HEADER_FRAME_RATE</span> <span class="o">=</span>             <span class="mi">8</span>
+
+<span class="c1"># SD Card Config Sector positions</span>
+<span class="n">CONFIG_BLOCK_WIDTH_POS</span> <span class="o">=</span>                <span class="mi">0</span>
+<span class="n">CONFIG_BLOCK_HEIGHT_POS</span> <span class="o">=</span>               <span class="mi">1</span>
+<span class="n">CONFIG_BLOCK_FRAME_RATE_POS</span> <span class="o">=</span>           <span class="mi">2</span>
+<span class="n">CONFIG_BLOCK_BUFFER_SIZE_POS</span> <span class="o">=</span>          <span class="mi">3</span>
+<span class="n">CONFIG_BLOCK_NUM_BUFFERS_RECORDED_POS</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">CONFIG_BLOCK_NUM_BUFFERS_DROPPED_POS</span> <span class="o">=</span>  <span class="mi">5</span>
+
+<span class="c1"># Data Buffer Header positions</span>
+<span class="n">BUFFER_HEADER_HEADER_LENGTH_POS</span> <span class="o">=</span>           <span class="mi">0</span>
+<span class="n">BUFFER_HEADER_LINKED_LIST_POS</span> <span class="o">=</span>             <span class="mi">1</span>
+<span class="n">BUFFER_HEADER_FRAME_NUM_POS</span> <span class="o">=</span>               <span class="mi">2</span>
+<span class="n">BUFFER_HEADER_BUFFER_COUNT_POS</span> <span class="o">=</span>            <span class="mi">3</span>
+<span class="n">BUFFER_HEADER_FRAME_BUFFER_COUNT_POS</span> <span class="o">=</span>      <span class="mi">4</span>
+<span class="n">BUFFER_HEADER_WRITE_BUFFER_COUNT_POS</span> <span class="o">=</span>      <span class="mi">5</span>
+<span class="n">BUFFER_HEADER_DROPPED_BUFFER_COUNT_POS</span> <span class="o">=</span>    <span class="mi">6</span>
+<span class="n">BUFFER_HEADER_TIMESTAMP_POS</span> <span class="o">=</span>               <span class="mi">7</span>
+<span class="n">BUFFER_HEADER_DATA_LENGTH_POS</span> <span class="o">=</span>             <span class="mi">8</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The new version changes the location of the header sectors, and adds an additional field for a write timestamp.</p>
+<p>Additionally, in the <a class="reference external" href="https://github.com/Aharoni-Lab/Miniscope-v4-Wire-Free/blob/master/Miniscope-v4-Wire-Free-Python%20DAQ%20Interface/Set%20recording%20parameters%20-%20WireFree%20V4%20Miniscope.ipynb">formatting code</a> bundled with the new version of the reading code, we have inconsistent header fields:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-2">
+Reading</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># SD Card Header Sector positions</span>
+<span class="n">HEADER_GAIN_POS</span> <span class="o">=</span>               <span class="mi">4</span>
+<span class="n">HEADER_LED_POS</span> <span class="o">=</span>                <span class="mi">5</span>
+<span class="n">HEADER_EWL_POS</span> <span class="o">=</span>                <span class="mi">6</span>
+<span class="n">HEADER_RECORD_LENGTH_POS</span> <span class="o">=</span>      <span class="mi">7</span>
+<span class="n">HEADER_FRAME_RATE</span> <span class="o">=</span>             <span class="mi">8</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-3">
+Writing</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># SD Card Header Sector positions</span>
+<span class="n">HEADER_GAIN_POS</span> <span class="o">=</span>               <span class="mi">4</span>
+<span class="n">HEADER_LED_POS</span> <span class="o">=</span>                <span class="mi">5</span>
+<span class="n">HEADER_EWL_POS</span> <span class="o">=</span>                <span class="mi">6</span>
+<span class="n">HEADER_RECORD_LENGTH_POS</span> <span class="o">=</span>      <span class="mi">7</span>
+<span class="n">HEADER_FRAME_RATE</span> <span class="o">=</span>             <span class="mi">8</span>
+<span class="n">HEADER_DELAY_START_POS</span> <span class="o">=</span>        <span class="mi">9</span>
+<span class="n">HEADER_BATT_CUTOFF_POS</span> <span class="o">=</span>        <span class="mi">10</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>So even within the same microscope, over time we have format drift! We would like to be able to account for this drift, as well as make it easier to add, remove, and move fields for different microscopes. There is also some zombie code - the <code class="docutils literal notranslate"><span class="pre">WRITE_KEY</span></code>s above don’t seem to be used, but there’s no way for me to be sure!</p>
+<p>We can make something that we can rely on rather than needing to juggle notebook code!</p>
+</section>
+<section id="format-abstraction">
+<h3>Format abstraction<a class="headerlink" href="#format-abstraction" title="Permalink to this heading">#</a></h3>
+<p>We’re going to use our trusty friend <a class="reference external" href="https://docs.pydantic.dev/latest/">pydantic</a> to make some data models that mimic the above configurations.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We are just transcribing code at this point rather than rearchitecting it - ideally we would have some kind of data format that would allow us to unambiguously address the header and other metadata without needing to compute from sector size and etc. but we will get there!</p>
+</div>
+<p>The current code mixes information about the format with the code used to read it. We are instead going to separate this out into three parts</p>
+<ul class="simple">
+<li><p>Abstract specification of format - the possible values that a format spec can use, as well as some defaults</p></li>
+<li><p>Specific formats - The concrete values used by a particular miniscope</p></li>
+<li><p>I/O - a reader/writer that uses a format configuration to read and write video data.</p></li>
+</ul>
+</section>
+<section id="sector-config">
+<h3>Sector Config<a class="headerlink" href="#sector-config" title="Permalink to this heading">#</a></h3>
+<p>First, we want to configure the highest-level of the format: where the different sections are, and how large a sector is on the disk.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+
+<span class="k">class</span> <span class="nc">SectorConfig</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Configuration of sector layout on the SD card.</span>
+
+<span class="sd">    For each sector, one can retrieve the position with the attribute *_pos,</span>
+
+<span class="sd">    eg.</span>
+
+<span class="sd">    &gt;&gt;&gt; sectors = SectorConfig(header=1023, config=1024, data=1025, size=512)</span>
+<span class="sd">    &gt;&gt;&gt; sectors.header</span>
+<span class="sd">    1024</span>
+<span class="sd">    &gt;&gt;&gt; # should be 1023 * 512</span>
+<span class="sd">    &gt;&gt;&gt; sectors.header_pos</span>
+<span class="sd">    523776</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">header</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1023</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Holds user settings to configure Miniscope and recording</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">config</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1024</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Holds final settings of the actual recording</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1025</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Recording data starts here</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">512</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The size of an individual sector</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get positions by multiplying by sector size</span>
+<span class="sd">        (__getattr__ is only called if the name can&#39;t be found, so we don&#39;t need to handle</span>
+<span class="sd">        the base case of the existing attributes)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">split</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">split</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">split</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;pos&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">split</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">()</span>
+
+</pre></div>
+</div>
+<p>The top part illustrates the basic use of pydantic for data models:</p>
+<ul class="simple">
+<li><p>Declare the <strong>fields</strong> of this model with class attributes</p></li>
+<li><p>Each field has a type annotation, in this case all <code class="docutils literal notranslate"><span class="pre">int</span></code>s. Pydantic will validate these when the model is instantiated</p></li>
+<li><p>Each field also has a default value that will be used if none is provided explicitly.</p></li>
+<li><p>We use <code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;docstrings&quot;&quot;&quot;</span></code> to explain what each parameter is (copied from the original notebook), and that will be included in any generated documentation we use, as well as the JSON-schema that is generated by pydantic.</p></li>
+</ul>
+<p>We do a little something extra for quality of life. Since each position is a number of sectors from the beginning of the drive, we override the <code class="docutils literal notranslate"><span class="pre">__getattr__</span></code> method so that each field (eg. <code class="docutils literal notranslate"><span class="pre">header</span></code>) has a “virtual” <code class="docutils literal notranslate"><span class="pre">header_pos</span></code> field that returns <code class="docutils literal notranslate"><span class="pre">header</span></code> * <code class="docutils literal notranslate"><span class="pre">size</span></code>. This prevents us from needing to repeat ourselves every time we need to do multiplication, and also creates a clear semantic meaning to the different numbers.</p>
+</section>
+<section id="sd-header">
+<h3>SD Header<a class="headerlink" href="#sd-header" title="Permalink to this heading">#</a></h3>
+<p>Rather than having a flat series of attributes, we can bundle together the different sets of disk positions. For example, the header for the whole SD card:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+
+<span class="k">class</span> <span class="nc">SDHeaderPositions</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Positions in the header for the whole SD card</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gain</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">led</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">ewl</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6</span>
+    <span class="n">record_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">7</span>
+    <span class="n">fs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Frame rate&quot;&quot;&quot;</span>
+    <span class="n">delay_start</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">battery_cutoff</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+</div>
+<p>This model is the same, except we introduce the notion of optional parameters, by default set to <code class="docutils literal notranslate"><span class="pre">None</span></code>. We will write the code that consumes this object in such a way that it can handle unset values, since we introduced the <code class="docutils literal notranslate"><span class="pre">delay_start</span></code> as a feature after the original format, but don’t want to break it!</p>
+</section>
+<section id="all-together">
+<h3>All Together<a class="headerlink" href="#all-together" title="Permalink to this heading">#</a></h3>
+<p>We combine several of these sub-models together in the top-level model:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SDLayout</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Data layout of an SD Card.</span>
+
+<span class="sd">    Used by the :class:`.io.SDCard` class to tell it how data on the SD card is laid out.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sectors</span><span class="p">:</span> <span class="n">SectorConfig</span>
+    <span class="n">write_key0</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mh">0x0D7CBA17</span>
+    <span class="n">write_key1</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mh">0x0D7CBA17</span>
+    <span class="n">write_key2</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mh">0x0D7CBA17</span>
+    <span class="n">write_key3</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mh">0x0D7CBA17</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    These don&#39;t seem to actually be used in the existing reading/writing code, but we will leave them here for continuity&#39;s sake :)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">word_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    I&#39;m actually not sure what this is, but 4 is hardcoded a few times in the existing notebook and it</span>
+<span class="sd">    appears to be used as a word size when reading from the SD card.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">header</span><span class="p">:</span> <span class="n">SDHeaderPositions</span> <span class="o">=</span> <span class="n">SDHeaderPositions</span><span class="p">()</span>
+    <span class="n">config</span><span class="p">:</span> <span class="n">ConfigPositions</span> <span class="o">=</span> <span class="n">ConfigPositions</span><span class="p">()</span>
+    <span class="n">buffer</span><span class="p">:</span> <span class="n">BufferHeaderPositions</span> <span class="o">=</span> <span class="n">BufferHeaderPositions</span><span class="p">()</span>
+
+</pre></div>
+</div>
+<p>Which is a tidy, abstract representation of the various fields we can have in our data structure.</p>
+<p>Conveniently, pydantic also makes a standardized JSON-schema for our config, so we get some interoperability for free, even if there isn’t quite enough information to actually make use of it:</p>
+<p>If we call <code class="docutils literal notranslate"><span class="pre">SDLayout.schema()</span></code>, we get…</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+JSON Schema (click to expand)<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SDLayout&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Data layout of an SD Card.\\n\\nUsed by the :class:`.io.SDCard` class to tell it how data on the SD card is laid out.&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;sectors&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;$ref&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;#/definitions/SectorConfig&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;write_key0&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Write Key0&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">226277911</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;write_key1&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Write Key1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">226277911</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;write_key2&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Write Key2&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">226277911</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;write_key3&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Write Key3&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">226277911</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;word_size&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Word Size&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;header&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Header&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;default&quot;</span><span class="p">:</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;gain&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;led&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;ewl&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;record_length&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;fs&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;delay_start&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;battery_cutoff&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;allOf&quot;</span><span class="p">:</span>
+<span class="w">      </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;$ref&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;#/definitions/SDHeaderPositions&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;config&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Config&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;default&quot;</span><span class="p">:</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;fs&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;buffer_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;n_buffers_recorded&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;n_buffers_dropped&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;allOf&quot;</span><span class="p">:</span>
+<span class="w">      </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;$ref&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;#/definitions/ConfigPositions&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;buffer&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Buffer&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;default&quot;</span><span class="p">:</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;length&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;linked_list&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;frame_num&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;buffer_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;frame_buffer_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;write_buffer_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;dropped_buffer_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;data_length&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;write_timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;allOf&quot;</span><span class="p">:</span>
+<span class="w">      </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;$ref&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;#/definitions/BufferHeaderPositions&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;required&quot;</span><span class="p">:</span>
+<span class="w">  </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;sectors&quot;</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;definitions&quot;</span><span class="p">:</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;SectorConfig&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SectorConfig&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Configuration of sector layout on the SD card.\\n\\nFor each sector, one can retrieve the position with the attribute *_pos,\\n\\neg.\\n\\n&gt;&gt;&gt; sectors = SectorConfig(header=1023, config=1024, data=1025, size=512)\\n&gt;&gt;&gt; sectors.header\\n1024\\n&gt;&gt;&gt; # should be 1023 * 512\\n&gt;&gt;&gt; sectors.header_pos\\n523776&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;header&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Header&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1023</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;config&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Config&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1024</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;data&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Data&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1025</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;size&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Size&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">512</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;SDHeaderPositions&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SDHeaderPositions&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Positions in the header for the whole SD card&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;gain&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Gain&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;led&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Led&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;ewl&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ewl&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;record_length&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Record Length&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;fs&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Fs&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;delay_start&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Delay Start&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;battery_cutoff&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Battery Cutoff&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;ConfigPositions&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ConfigPositions&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Image acquisition configuration positions&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;width&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Width&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;height&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Height&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;fs&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Fs&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;buffer_size&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Buffer Size&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;n_buffers_recorded&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;N Buffers Recorded&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;n_buffers_dropped&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;N Buffers Dropped&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;BufferHeaderPositions&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;BufferHeaderPositions&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Positions in the header for each frame&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;length&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Length&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;linked_list&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Linked List&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;frame_num&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Frame Num&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;buffer_count&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Buffer Count&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;frame_buffer_count&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Frame Buffer Count&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;write_buffer_count&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Write Buffer Count&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;dropped_buffer_count&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Dropped Buffer Count&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Timestamp&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;data_length&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Data Length&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;default&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;write_timestamp&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Write Timestamp&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</details></section>
+<section id="specific-formats">
+<h3>Specific Formats<a class="headerlink" href="#specific-formats" title="Permalink to this heading">#</a></h3>
+<p>We then use this schematic model to declare the specific values for the wirefree miniscope (conveniently, most of these are the default values, wonder why that is lmao)</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">miniscope_io/formats.py</span></code>, we find:</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+WireFreeSDLayout Format Example<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">miniscope_io.sdcard</span> <span class="kn">import</span> \
+    <span class="n">SDLayout</span><span class="p">,</span> \
+    <span class="n">SectorConfig</span><span class="p">,</span> \
+    <span class="n">SDHeaderPositions</span><span class="p">,</span> \
+    <span class="n">BufferHeaderPositions</span><span class="p">,</span> \
+    <span class="n">ConfigPositions</span>
+
+<span class="n">WireFreeSDLayout</span> <span class="o">=</span> <span class="n">SDLayout</span><span class="p">(</span>
+    <span class="n">sectors</span><span class="o">=</span><span class="n">SectorConfig</span><span class="p">(</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="mi">1022</span><span class="p">,</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="mi">1023</span><span class="p">,</span>
+        <span class="n">data</span>   <span class="o">=</span> <span class="mi">1024</span><span class="p">,</span>
+        <span class="n">size</span>   <span class="o">=</span> <span class="mi">512</span>
+    <span class="p">),</span>
+    <span class="n">write_key0</span> <span class="o">=</span> <span class="mh">0x0D7CBA17</span><span class="p">,</span>
+    <span class="n">write_key1</span> <span class="o">=</span> <span class="mh">0x0D7CBA17</span><span class="p">,</span>
+    <span class="n">write_key2</span> <span class="o">=</span> <span class="mh">0x0D7CBA17</span><span class="p">,</span>
+    <span class="n">write_key3</span> <span class="o">=</span> <span class="mh">0x0D7CBA17</span><span class="p">,</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="n">SDHeaderPositions</span><span class="p">(</span>
+        <span class="n">gain</span>           <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="n">led</span>            <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="n">ewl</span>            <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
+        <span class="n">record_length</span>  <span class="o">=</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="n">fs</span>             <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="n">delay_start</span>    <span class="o">=</span> <span class="mi">9</span><span class="p">,</span>
+        <span class="n">battery_cutoff</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="p">),</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigPositions</span><span class="p">(</span>
+        <span class="n">width</span>              <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">height</span>             <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">fs</span>                 <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="n">buffer_size</span>        <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="n">n_buffers_recorded</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="n">n_buffers_dropped</span>  <span class="o">=</span> <span class="mi">5</span>
+    <span class="p">),</span>
+    <span class="n">buffer</span> <span class="o">=</span> <span class="n">BufferHeaderPositions</span><span class="p">(</span>
+        <span class="n">length</span>               <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">linked_list</span>          <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">frame_num</span>            <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="n">buffer_count</span>         <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="n">frame_buffer_count</span>   <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="n">write_buffer_count</span>   <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="n">dropped_buffer_count</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
+        <span class="n">timestamp</span>            <span class="o">=</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="n">data_length</span>          <span class="o">=</span> <span class="mi">8</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details></section>
+</section>
+<section id="io">
+<h2>IO<a class="headerlink" href="#io" title="Permalink to this heading">#</a></h2>
+<p>Great, that gives us some abstract definition of the format, now to use it!</p>
+<section id="id1">
+<h3>Current Status!<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>The current code was written under duress! Or I mean, in a time crunch! Whatever! It is reproduced here not to shame, but to show where we’re starting from!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># Load up Config Sector</span>
+<span class="n">f</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">configSector</span> <span class="o">*</span> <span class="n">sectorSize</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># Move to correct sector</span>
+<span class="n">configSectorData</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">sectorSize</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
+
+<span class="c1"># Read Data Sectors</span>
+<span class="n">saveVideo</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">plotHeaderValues</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">displayVideo</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="n">frameNum</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">pixelCount</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">header</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">if</span> <span class="n">saveVideo</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoWriter</span><span class="p">(</span><span class="s1">&#39;WFV4_Mini5_test2.avi&#39;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoWriter_fourcc</span><span class="p">(</span><span class="o">*</span><span class="s1">&#39;GREY&#39;</span><span class="p">),</span> 
+                        <span class="mf">10.0</span><span class="p">,</span> <span class="p">(</span><span class="n">configSectorData</span><span class="p">[</span><span class="n">CONFIG_BLOCK_WIDTH_POS</span><span class="p">],</span> <span class="n">configSectorData</span><span class="p">[</span><span class="n">CONFIG_BLOCK_HEIGHT_POS</span><span class="p">]</span> <span class="p">),</span> 
+                        <span class="n">isColor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">configSectorData</span><span class="p">[</span><span class="n">CONFIG_BLOCK_WIDTH_POS</span><span class="p">]</span> <span class="o">*</span> <span class="n">configSectorData</span><span class="p">[</span><span class="n">CONFIG_BLOCK_HEIGHT_POS</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">dataStartSector</span> <span class="o">*</span> <span class="n">sectorSize</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># Starting data location</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">configSectorData</span><span class="p">[</span><span class="n">CONFIG_BLOCK_NUM_BUFFERS_RECORDED_POS</span><span class="p">]):</span>
+    <span class="n">dataHeader</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span> <span class="c1"># gets header length</span>
+    <span class="n">dataHeader</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dataHeader</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">((</span><span class="n">dataHeader</span><span class="p">[</span><span class="n">BUFFER_HEADER_HEADER_LENGTH_POS</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">))</span>
+
+    <span class="n">header</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dataHeader</span><span class="p">)</span>
+    
+    <span class="n">numBlocks</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">dataHeader</span><span class="p">[</span><span class="n">BUFFER_HEADER_DATA_LENGTH_POS</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">dataHeader</span><span class="p">[</span><span class="n">BUFFER_HEADER_HEADER_LENGTH_POS</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">512</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="mi">512</span><span class="p">)</span>
+    
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">numBlocks</span><span class="o">*</span><span class="mi">512</span> <span class="o">-</span> <span class="n">dataHeader</span><span class="p">[</span><span class="n">BUFFER_HEADER_HEADER_LENGTH_POS</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+
+    <span class="c1"># -------------------------------------</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">dataHeader</span><span class="p">[</span><span class="n">BUFFER_HEADER_FRAME_BUFFER_COUNT_POS</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="c1"># First buffer of a frame</span>
+        
+        <span class="k">if</span> <span class="n">saveVideo</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="n">configSectorData</span><span class="p">[</span><span class="n">CONFIG_BLOCK_WIDTH_POS</span><span class="p">],</span> <span class="n">configSectorData</span><span class="p">[</span><span class="n">CONFIG_BLOCK_HEIGHT_POS</span><span class="p">]</span> <span class="p">)))</span>
+        
+        <span class="k">if</span> <span class="n">displayVideo</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;Video&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="p">(</span><span class="n">configSectorData</span><span class="p">[</span><span class="n">CONFIG_BLOCK_WIDTH_POS</span><span class="p">],</span> <span class="n">configSectorData</span><span class="p">[</span><span class="n">CONFIG_BLOCK_HEIGHT_POS</span><span class="p">]</span> <span class="p">)))</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+            
+        <span class="n">frame</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">dataHeader</span><span class="p">[</span><span class="n">BUFFER_HEADER_DATA_LENGTH_POS</span><span class="p">],</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="n">pixelCount</span> <span class="o">=</span> <span class="n">dataHeader</span><span class="p">[</span><span class="n">BUFFER_HEADER_DATA_LENGTH_POS</span><span class="p">]</span>
+        <span class="n">frameNum</span> <span class="o">=</span> <span class="n">dataHeader</span><span class="p">[</span><span class="n">BUFFER_HEADER_FRAME_NUM_POS</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># All other buffers of a frame</span>
+        <span class="c1"># startIdx = dataHeader[BUFFER_HEADER_FRAME_BUFFER_COUNT_POS] * 50 * 512</span>
+        <span class="n">frame</span><span class="p">[</span><span class="n">pixelCount</span><span class="p">:(</span><span class="n">pixelCount</span> <span class="o">+</span> <span class="n">dataHeader</span><span class="p">[</span><span class="n">BUFFER_HEADER_DATA_LENGTH_POS</span><span class="p">]),</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="n">dataHeader</span><span class="p">[</span><span class="n">BUFFER_HEADER_DATA_LENGTH_POS</span><span class="p">]]</span>
+        <span class="n">pixelCount</span> <span class="o">=</span> <span class="n">pixelCount</span> <span class="o">+</span> <span class="n">dataHeader</span><span class="p">[</span><span class="n">BUFFER_HEADER_DATA_LENGTH_POS</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="n">saveVideo</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>            
+    <span class="n">out</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">displayVideo</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">destroyWindow</span><span class="p">(</span><span class="s1">&#39;Video&#39;</span><span class="p">)</span>
+    
+<span class="k">if</span> <span class="n">plotHeaderValues</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Some things we would like to improve on!</p>
+<ul class="simple">
+<li><p><strong>Hard to read!</strong> The same variables are accessed multiple times with long indexing variable names</p></li>
+<li><p><strong>Brittle!</strong> Some values are hardcoded (eg. the <code class="docutils literal notranslate"><span class="pre">word_size</span></code> of <code class="docutils literal notranslate"><span class="pre">4</span></code> and the <code class="docutils literal notranslate"><span class="pre">sector_size</span></code> of <code class="docutils literal notranslate"><span class="pre">512</span></code>) redundantly, meaning that if we change the configuration file at the top, the reading code wouldn’t actually use it! Our configuration model is an <em>interface</em> to our reader, and if the reader doesn’t respond to the inputs of the interface, then it doesn’t work!</p></li>
+<li><p><strong>Monolithic!</strong> It’s one big loop, so we can’t write tests for it or reuse any of it elsewhere! Multiple different kinds of code are mixed together: we can save a video and plot frames as we gather them. This logic is embedded within the I/O code, so if we want to add any additional functionality to our video or plotting functions, we need to expand the loop, making it more difficult to maintain!</p></li>
+<li><p><strong>Dangerous!</strong> - File handling is outside of a context manager - Since this is precious data, we don’t want to corrupt our drive! This is less of a problem in <code class="docutils literal notranslate"><span class="pre">rb</span></code> mode than it would be in a write mode, but we want to be sure that we <em>always</em> close the file after we are done using it.</p></li>
+</ul>
+<p>You get the idea!</p>
+</section>
+<section id="separate-i-o-class">
+<h3>Separate I/O Class<a class="headerlink" href="#separate-i-o-class" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>using context managers to open file descriptors</p></li>
+<li><p>TO BE HONEST IT GOT VERY LATE WHILE I WAS WORKING ON THE CODE AND I WILL FINISH THE TUTORIAL LATER</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./modularity"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="modularity.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Modularity - Basics</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../docs.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Docs</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problems">Problems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#format">Format</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#current-status">Current Status!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#format-abstraction">Format abstraction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sector-config">Sector Config</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sd-header">SD Header</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#all-together">All Together</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#specific-formats">Specific Formats</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#io">IO</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Current Status!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#separate-i-o-class">Separate I/O Class</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jonny Saunders
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
